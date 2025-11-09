@@ -91,6 +91,11 @@ export default async function(eleventyConfig) {
 		}
 	});
 
+	eleventyConfig.addPairedShortcode("script", function(content) {
+		return `<script>${content}</script>`;
+	});
+
+
 	// Image optimization: https://www.11ty.dev/docs/plugins/image/#eleventy-transform
 	eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
 		// Output formats for each image.
