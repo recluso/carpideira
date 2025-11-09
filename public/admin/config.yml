@@ -1,7 +1,10 @@
 backend:
   name: github
-  repo: recluso/carpideira
+  repo: recluso/carpideira 
   branch: main
+  # --- Add these two lines ---
+  auth_endpoint: /api/auth 
+  base_url: https://carpideira.com # Important: Use your actual production URL
 
 # The publish mode (allows for draft pull requests before publishing)
 publish_mode: editorial_workflow
