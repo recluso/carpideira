@@ -4,3 +4,22 @@ backend:
   branch: main
   base_url: https://decap-server.netlify.app
   auth_endpoint: auth
+
+# The publish mode (allows for draft pull requests before publishing)
+publish_mode: editorial_workflow
+
+media_folder: "public/img/uploads"
+public_folder: "/img/uploads"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Draft", name: "draft", widget: "boolean", default: true, required: false}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
