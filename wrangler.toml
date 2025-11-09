@@ -1,0 +1,11 @@
+# wrangler.toml
+
+# Define the type of project (pages)
+name = "carpideira"
+pages_build_output_dir = "_site"
+
+[site]
+# This tells Cloudflare where to find the static assets
+bucket = "_site" 
+# This explicitly defines the directory containing the functions
+entry-point = "functions"
