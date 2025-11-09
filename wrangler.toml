@@ -1,11 +1,11 @@
-# wrangler.toml
+# wrangler.toml (CORRECTED for Cloudflare Pages Functions)
 
-# Define the type of project (pages)
+# Define the name of your project 
 name = "carpideira"
+
+# The path to your static site's output directory
 pages_build_output_dir = "_site"
 
-[site]
-# This tells Cloudflare where to find the static assets
-bucket = "_site" 
-# This explicitly defines the directory containing the functions
-entry-point = "functions"
+# This explicitly sets the directory where your serverless Functions are located
+# This is the key line for fixing the mapping issue.
+functions_directory = "functions"
