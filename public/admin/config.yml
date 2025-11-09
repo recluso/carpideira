@@ -1,21 +1,21 @@
 backend:
   name: github
-  repo: recluso/carpideira 
+  repo: recluso/carpideira
   branch: main
   # --- Add these two lines ---
-  auth_endpoint: /api/auth 
-  base_url: https://carpideira.com # Important: Use your actual production URL
+  auth_endpoint: /api/auth
+  base_url: https://carpideira.com
 
 # The publish mode (allows for draft pull requests before publishing)
 publish_mode: editorial_workflow
 
-media_folder: "public/img/uploads" # Where images will be saved
-public_folder: "/img/uploads" # How images are referenced in posts
+media_folder: "public/img/uploads"
+public_folder: "/img/uploads"
 
 collections:
   - name: "posts"
     label: "Posts"
-    folder: "content/blog" # Adjust based on where posts live in the Eleventy starter
+    folder: "content/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
