@@ -2,7 +2,7 @@ backend:
   name: github
   repo: recluso/carpideira
   branch: main
-  base_url: https://decap-server.netlify.app
+  base_url: https://decap-oauth.recluso.workers.dev
   auth_endpoint: auth
 
 # The publish mode (allows for draft pull requests before publishing)
