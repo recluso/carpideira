@@ -123,7 +123,10 @@ p {
 	font-style: normal;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
 	font-family: "Alegreya", serif;
 	font-optical-sizing: auto;
 	font-weight: 700;
@@ -268,8 +271,13 @@ header {
 	font-style: normal;
 }
 
+.nav li {
+	font-family: "Alegreya", serif;
+}
+
 .nav-item {
 	display: inline-block;
+	font-family: "Alegreya", serif;
 }
 
 .nav-item a[href]:not(:hover) {
@@ -311,7 +319,7 @@ header {
 	text-align: right;
 	margin-left: -1.5rem;
 	font-size: 95%;
-    margin-bottom: 0.25rem;
+	margin-bottom: 0.25rem;
 	color: var(--color-gray-90);
 }
 
