@@ -12,7 +12,8 @@ const eleventyNavigation = {
        background-color: #E6FFF3; 
        color: #004D28; 
        border-radius: 4px;
-       margin: 12px auto;">
+       margin: 12px auto;
+       width: 90%;">
     
     <h2>✅ Submission Successful!</h2>
     <p>Thanks for the message!</p>
@@ -32,15 +33,11 @@ const eleventyNavigation = {
 
 {% script %}
     document.addEventListener('DOMContentLoaded', () => {
-        // 1. Get the current URL's query parameters
         const params = new URLSearchParams(window.location.search);
         
-        // 2. Check if the 'status' parameter is present and its value is 'success'
         if (params.get('status') === 'success') {
-            // 3. Get the hidden message element
             const messageElement = document.getElementById('thank-you-message');
             
-            // 4. If the element exists, make it visible
             if (messageElement) {
                 messageElement.style.display = 'block';
             }
