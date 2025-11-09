@@ -7,12 +7,12 @@ const eleventyNavigation = {
 # Contact
 
 <div id="thank-you-message" style="display:none; 
-       padding: 10px;
-       border: 1px solid #00A86B; 
+       padding: 6px;
+       border: 1px solid #93fcd6ff; 
        background-color: #E6FFF3; 
        color: #004D28; 
        border-radius: 4px;
-       margin: 0 0 0 0;
+       margin: 0 0 1rem 0;
        width: 90%;">
     
     <h2>✅ Submission Successful!</h2>
