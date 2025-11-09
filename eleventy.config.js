@@ -4,7 +4,10 @@ import pluginSyntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import pluginNavigation from "@11ty/eleventy-navigation";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 
+import Image from "@11ty/eleventy-img";
 import pluginFilters from "./_config/filters.js";
+
+/** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function(eleventyConfig) {
@@ -18,6 +21,42 @@ export default async function(eleventyConfig) {
 			return false;
 		}
 	});
+
+	// ASYNCHRONOUS SHORTCODE FOR THUMBNAILS:
+	eleventyConfig.addNunjucksAsyncShortcode("imageThumbnail", async function(src, alt) {
+		
+		if(alt === undefined || alt === null) {
+        alt = "Image thumbnail";
+    }
+    
+    // Correctly convert the public URL path to a file system path
+    let sourcePath = `./content${src}`; 
+
+    try {
+        let metadata = await Image(sourcePath, {
+            widths: [80],
+            formats: ["webp", "jpeg"],
+            
+            // outputDir: Where the file is physically saved in your built folder
+            outputDir: "./_site/img/thumbs/", 
+            
+            // 💡 CRITICAL CHANGE: Use a RELATIVE path for urlPath.
+            // This often fixes the automatic prefixing issue when dir.input is set.
+            urlPath: "../img/thumbs/" 
+            // OR try: urlPath: "img/thumbs/" 
+        });
+
+        let data = metadata.jpeg[metadata.jpeg.length - 1];
+        
+        // Return the HTML string
+        return `<img src="${data.url}" width="${data.width}" height="${data.height}" alt="${alt}" loading="lazy" decoding="async" class="postlist-thumb">`;
+
+    	} catch(e) {
+			console.error(`[Eleventy Image] Failed to process image for thumbnail at path: ${sourcePath}. Error: ${e.message}`);
+			return ''; 
+		}
+	});
+
 
 	// Copy the contents of the `public` folder to the output folder
 	// For example, `./public/css/` ends up in `_site/css/`

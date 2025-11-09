@@ -1,6 +1,7 @@
 /* Defaults */
+
 :root {
-	--font-family: -apple-system, system-ui, sans-serif;
+	--font-family: font-family: "Alegreya Sans", sans-serif;
 	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
 }
 
@@ -62,6 +63,9 @@ body {
 	font-family: var(--font-family);
 	color: var(--text-color);
 	background-color: var(--background-color);
+	/* font-family: "Alegreya Sans", sans-serif; */
+	font-weight: 400;
+	font-style: normal;
 }
 
 html {
@@ -114,10 +118,23 @@ p:last-child {
 
 p {
 	line-height: 1.5;
+	font-family: "Alegreya Sans", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+h1, h2, h3, h4 {
+	font-family: "Alegreya", serif;
+	font-optical-sizing: auto;
+	font-weight: 700;
+	font-style: normal;
 }
 
 li {
 	line-height: 1.5;
+	font-family: "Alegreya Sans", sans-serif;
+	font-weight: 400;
+	font-style: normal;
 }
 
 a[href] {
@@ -245,6 +262,10 @@ header {
 	padding: 0;
 	margin: 0;
 	list-style: none;
+	font-family: "Alegreya", serif;
+	font-optical-sizing: auto;
+	font-weight: 700;
+	font-style: normal;
 }
 
 .nav-item {
@@ -264,31 +285,39 @@ header {
 	counter-reset: start-from var(--postlist-index);
 	list-style: none;
 	padding: 0;
-	padding-left: 1.5rem;
+	padding-left: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
 }
 
 .postlist-item {
 	display: flex;
-	flex-wrap: wrap;
+	/* flex-wrap: wrap; */
 	align-items: baseline;
 	counter-increment: start-from -1;
 	margin-bottom: 1em;
+	flex-direction: column;
+	background-color: #e7e7e7;
+	padding: 6px 10px 10px;
+	border-radius: 6px;
 }
 
 .postlist-item:before {
 	display: inline-block;
 	pointer-events: none;
-	content: "" counter(start-from, decimal-leading-zero) ". ";
+	content: "Post No. " counter(start-from, decimal-leading-zero) ": ";
 	line-height: 100%;
 	text-align: right;
 	margin-left: -1.5rem;
+	font-size: 95%;
+    margin-bottom: 0.25rem;
+	color: var(--color-gray-90);
 }
 
-.postlist-date,
-.postlist-item:before {
+.postlist-date {
 	font-size: 0.8125em;
 	/* 13px /16 */
-	color: var(--color-gray-90);
 }
 
 .postlist-date {
