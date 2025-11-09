@@ -1,8 +1,9 @@
 ---
-title: This is my first post.
+title: Edited
 description: This is a post on My Blog about agile frameworks.
-date: 2018-05-01
+date: 2025-11-09T10:59:00.000+00:00
 tags: another tag
+featured_image: /img/uploads/c1ceebbf-3aa1-4098-a525-fe96ac59455c.jpg
 ---
 Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
 
