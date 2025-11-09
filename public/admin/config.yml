@@ -8,7 +8,7 @@ backend:
 # The publish mode (allows for draft pull requests before publishing)
 publish_mode: editorial_workflow
 
-media_folder: "public/img/uploads"
+media_folder: "content/img/uploads"
 public_folder: "/img/uploads"
 
 collections:

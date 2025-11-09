@@ -27,6 +27,12 @@ export default async function(eleventyConfig) {
 		})
 		.addPassthroughCopy("./content/feed/pretty-atom-feed.xsl");
 
+
+	// Add passthrough for content images (they'll be in _site/img/uploads/)
+	eleventyConfig.addPassthroughCopy({
+		"content/img/uploads": "img/uploads"
+		});
+
 	// Run Eleventy when these files change:
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
 
