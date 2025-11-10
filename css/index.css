@@ -388,6 +388,10 @@ header {
 	margin-right: 1em;
 }
 
+.post-featured-image {
+	margin: 0 0 2rem 0;
+	padding: 0 0 0 0;
+}
 
 #main .post-featured-image img {
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

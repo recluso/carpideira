@@ -43,11 +43,11 @@ eleventyConfig.addFilter("arrayMerge", function arrayMerge(arr1, arr2) {
     return a1.concat(a2);
 });
 
-// 2. Filter Tag List (Fixes TypeErrors, excludes 'posts', 'post', and 'all')
+// Filter Tag List (Now includes de-duplication)
 eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
-    
-    // Force array and handle single string tags (fixes original TypeError)
+    // 1. Force array and handle single string tags
     let tagsArray;
+    // ... array coercion logic ...
     if (!tags) {
         tagsArray = [];
     } else if (typeof tags === 'string') {
@@ -56,7 +56,10 @@ eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
         tagsArray = tags;
     }
 
-    // Exclude all organizational tags, case-insensitively
+    // 2. Remove Duplicates (THE FIX)
+    tagsArray = [...new Set(tagsArray)]; 
+
+    // 3. Exclude all organizational tags, case-insensitively
     const tagsToExclude = ["all", "posts", "post"]; 
 
     return tagsArray.filter(tag => {
