@@ -1,0 +1,48 @@
+{# This file uses CDN links for Leaflet assets. #}
+
+<style>
+    /* Add basic styling for the map container */
+    .post-map-container {
+        height: 350px; 
+        width: 100%;
+        border: 1px solid #ddd;
+        margin: 20px 0;
+    }
+</style>
+
+{# 1. Leaflet CSS: REMOVE INTEGRITY #}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+      
+{# 2. Leaflet JavaScript Library: REMOVE INTEGRITY #}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+{# 3. Map Initialization Script #}
+{% script %}
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const mapId = 'post-map-{{ page.fileSlug }}'; 
+        const container = document.getElementById(mapId);
+
+        if (container) {
+            
+            // Coordinates are pulled from the current post's front matter
+            const lat = {{ location.lat }};
+            const lon = {{ location.lon }};
+            const coordinates = [lat, lon];
+            
+            // Initialize Map, centered on the post's location
+            const map = L.map(mapId).setView(coordinates, 13);
+
+            // Add Tile Layer (OpenStreetMap base map)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Add a single marker
+            L.marker(coordinates).addTo(map)
+                .bindPopup('<b>{{ title }}</b><br>Location recorded here.')
+                .openPopup();
+        }
+    });
+{% endscript %}

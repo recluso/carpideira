@@ -33,9 +33,39 @@ export default function(eleventyConfig) {
 		return Object.keys(target);
 	});
 
-	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
-		return (tags || []).filter(tag => ["all", "posts"].indexOf(tag) === -1);
-	});
+	// In your filters.js file
+// In your filters.js file
+
+// 1. Array Merge Filter (Fixes Nunjucks' broken array concatenation)
+eleventyConfig.addFilter("arrayMerge", function arrayMerge(arr1, arr2) {
+    const a1 = Array.isArray(arr1) ? arr1 : [];
+    const a2 = Array.isArray(arr2) ? arr2 : [];
+    return a1.concat(a2);
+});
+
+// 2. Filter Tag List (Fixes TypeErrors, excludes 'posts', 'post', and 'all')
+eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
+    
+    // Force array and handle single string tags (fixes original TypeError)
+    let tagsArray;
+    if (!tags) {
+        tagsArray = [];
+    } else if (typeof tags === 'string') {
+        tagsArray = [tags];
+    } else {
+        tagsArray = tags;
+    }
+
+    // Exclude all organizational tags, case-insensitively
+    const tagsToExclude = ["all", "posts", "post"]; 
+
+    return tagsArray.filter(tag => {
+        const normalizedTag = String(tag).toLowerCase();
+        return tagsToExclude.indexOf(normalizedTag) === -1;
+    });
+});
+
+	
 
 	eleventyConfig.addFilter("sortAlphabetically", strings =>
 		(strings || []).sort((b, a) => b.localeCompare(a))

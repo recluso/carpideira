@@ -1,0 +1,28 @@
+---
+permalink: /api/map-data.json
+eleventyExcludeFromCollections: true
+---
+{% set geoFeatures = [] %}
+{% for post in collections.geoPosts %}
+    {% set feature = {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [ post.data.location.lon, post.data.location.lat ]
+        },
+        "properties": {
+            "title": post.data.title,
+            "url": post.url,
+            "date": post.date | dateToRfc3339
+        }
+    } %}
+    {% set geoFeatures = geoFeatures.push(feature) %}
+{% endfor %}
+{
+    "type": "FeatureCollection",
+    "features": [
+        {% for feature in geoFeatures %}
+            {{ feature | dump | safe }}{{ "," if not loop.last }}
+        {% endfor %}
+    ]
+}

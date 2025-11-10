@@ -2,31 +2,72 @@
 layout: layouts/base.njk
 ---
 {# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
-<style>{% include "node_modules/prismjs/themes/prism-okaidia.css" %}</style>
-<style>{% include "css/prism-diff.css" %}</style>
-<h1>{{ title }}</h1>
-{% if featured_image %}
-    <figure class="post-featured-image">
-        <img src="{{ featured_image }}" alt="{{ title }} featured image">
-    </figure>
-{% endif %}
+<style>{% include "node_modules/prismjs/themes/prism-okaidia.css" %}</style> 
+<style>{% include "css/prism-diff.css" %}</style> 
+<h1>{{ title }}</h1> 
+{% if featured_image %} 
+    <figure class="post-featured-image"> 
+        <img src="{{ featured_image }}" alt="{{ title }} featured image"> 
+    </figure> 
+{% endif %} 
+
+{# ------------------------------------------------------------- #}
+{# 1. SIMPLIFIED TAGS ARRAY: Rely entirely on Eleventy's data #}
+{#    The 'tags' property now includes 'geoPosts' due to the Collection API fix. #}
+{% set finalTags = tags | default([]) %} 
+{# ------------------------------------------------------------- #}
+
 <ul class="post-metadata">
 	<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
-	{%- for tag in tags | filterTagList %}
-	{%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
-	<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
-	{%- endfor %}
+    
+    {# 2. Filter the FINAL array using your fixed filter #}
+    {%- set tagsToDisplay = finalTags | filterTagList -%}
+
+    {# 3. Render tags inside a single <li> to prevent joining #}
+    {% if tagsToDisplay.length %}
+        <li>
+        {# Loop through the tags, controlling the separator with loop.first #}
+        {% for tag in tagsToDisplay %}
+            {% set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
+            
+            {# Output the comma separator ONLY if it's NOT the first tag #}
+            {% if not loop.first %}, {% endif %}
+            <a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>
+        {% endfor %}
+        </li>
+    {% endif %}
+    
 </ul>
 
-{{ content | safe }}
+{{ content | safe }} 
 
-{%- if collections.posts %}
-{%- set previousPost = collections.posts | getPreviousCollectionItem %}
-{%- set nextPost = collections.posts | getNextCollectionItem %}
-{%- if nextPost or previousPost %}
-<ul class="links-nextprev">
-	{%- if previousPost %}<li class="links-nextprev-prev">← Previous<br> <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></li>{% endif %}
-	{%- if nextPost %}<li class="links-nextprev-next">Next →<br><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %}
-</ul>
-{%- endif %}
+{# -------------------------------------------------------------------- #}
+{# 🗺️ Conditional Geo-Coordinates Map Integration #}
+
+{% if location and location.lat and location.lon %}
+    
+    <h2>Post Location</h2>
+    
+    {# 1. HTML Container with Unique ID #}
+    <div id="post-map-{{ page.fileSlug }}" class="post-map-container">
+        </div>
+
+    {# 2. Include all CSS and JS for Leaflet #}
+    {% include "post-map-assets.njk" %} 
+
+{% endif %}
+
+{# -------------------------------------------------------------------- #}
+
+
+{%- if collections.posts %} 
+{%- set previousPost = collections.posts | getPreviousCollectionItem %} 
+{%- set nextPost = collections.posts | 
+getNextCollectionItem %} 
+{%- if nextPost or previousPost %} 
+<ul class="links-nextprev"> 
+	{%- if previousPost %}<li class="links-nextprev-prev">← Previous<br> <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></li>{% endif %} 
+	{%- if nextPost %}<li class="links-nextprev-next">Next →<br><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %} 
+</ul> 
+{%- endif %} 
 {%- endif %}

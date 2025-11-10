@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: recluso/carpideira  # This needs to be indented!
+  repo: recluso/carpideira
   branch: main
   base_url: https://decap-oauth.recluso.workers.dev
   auth_endpoint: auth
@@ -8,8 +8,14 @@ backend:
 # The publish mode (allows for draft pull requests before publishing)
 publish_mode: editorial_workflow
 
+# REQUIRED FIELDS FOR CMS VALIDATION:
 media_folder: "content/img/uploads"
 public_folder: "/img/uploads"
+# It is best practice to include a media library definition
+media_library:
+  name: "uploadcare"
+  config:
+    multiple: false
 
 collections:
   - name: "posts"
@@ -22,4 +28,31 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      
+      # --- TAGS FIELD (List Widget) ---
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      
+      # --- GEO-COORDINATES FIELD (Object Widget) ---
+      - label: 'Location Coordinates'
+        name: 'location'
+        widget: 'object'
+        collapsed: true
+        required: false
+        fields:
+          - label: 'Latitude'
+            name: 'lat'
+            widget: 'number'
+            min: -90
+            max: 90
+            value_type: 'float'
+            step: 0.000001
+          - label: 'Longitude'
+            name: 'lon'
+            widget: 'number'
+            min: -180
+            max: 180
+            value_type: 'float'
+            step: 0.000001
+            
+      # ---------------------------------
       - {label: "Body", name: "body", widget: "markdown"}

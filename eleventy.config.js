@@ -11,6 +11,33 @@ import pluginFilters from "./_config/filters.js";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function(eleventyConfig) {
+
+	// --- Custom Collection for Geo-Tagged Posts ---
+    // --- FIX FOR geoPosts TAG COLLECTION ---
+    eleventyConfig.addCollection("geoPosts", function(collectionApi) {
+        return collectionApi.getAll().filter(item => {
+            // Check if the item has location data defined
+            const hasLocation = 
+                item.data.location && 
+                item.data.location.lat && 
+                item.data.location.lon;
+
+            if (hasLocation) {
+                // IMPORTANT: Manually add the tag to the item's data structure
+                // This makes the item appear in both the geoPosts collection 
+                // AND the general tagList collection.
+                if (Array.isArray(item.data.tags)) {
+                    item.data.tags.push("geoPosts");
+                } else if (item.data.tags) {
+                    item.data.tags = [item.data.tags, "geoPosts"];
+                } else {
+                    item.data.tags = ["geoPosts"];
+                }
+            }
+            return hasLocation;
+        });
+    });
+	
 	// Drafts, see also _data/eleventyDataSchema.js
 	eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
 		if (data.draft) {

@@ -33,14 +33,22 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
+
+		
 		--color-gray-20: #e0e0e0;
 		--color-gray-50: #C0C0C0;
-		--color-gray-90: #dad8d8;
+		--color-gray-90: #686767;
+		--text-color: var(--color-gray-20);
+		--color-sand-1: #ab946b;
+		--color-sand-2: #baa684;
+		--color-sand-3: #897869;
+		--color-sand-4: #b6aea6;
+		--color-sand-5: #9a8c7a;
 
 		/* --text-color is assigned to --color-gray-_ above */
-		--text-color-link: #1493fb;
-		--text-color-link-active: #6969f7;
-		--text-color-link-visited: #a6a6f8;
+		--text-color-link: #1395ff;
+		--text-color-link-active: #1395ff;
+		--text-color-link-visited: #1395ff;
 
 		--background-color: #15202b;
 	}
@@ -126,11 +134,16 @@ p {
 h1,
 h2,
 h3,
-h4 {
+h4,
+small {
 	font-family: "Alegreya", serif;
 	font-optical-sizing: auto;
 	font-weight: 700;
 	font-style: normal;
+}
+
+heading-anchors h1 {
+	text-align: center;
 }
 
 li {
