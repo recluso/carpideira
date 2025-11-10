@@ -12,10 +12,14 @@ publish_mode: editorial_workflow
 media_folder: "content/img/uploads"
 public_folder: "/img/uploads"
 # It is best practice to include a media library definition
-media_library:
-  name: "uploadcare"
-  config:
-    multiple: false
+# The media_library section below has been removed to disable Uploadcare
+# and switch to the free, built-in Git media management.
+#
+# REMOVED SECTION:
+# media_library:
+#   name: "uploadcare"
+#   config:
+#     multiple: false
 
 collections:
   - name: "posts"
